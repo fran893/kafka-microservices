@@ -10,5 +10,16 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: 'true'
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      retries: 0
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+app:
+  kafka:
+    producer:
+      topic: orders
 server:
   port: 8090

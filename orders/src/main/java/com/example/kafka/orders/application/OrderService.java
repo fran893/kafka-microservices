@@ -16,11 +16,13 @@ public class OrderService implements OrderPort {
 
     private OrderRepository orderRepository;
     private IMapper<Order, OrderEntity> mapper;
+    private OrderEventService orderEventService;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, IMapper<Order, OrderEntity> mapper) {
+    public OrderService(OrderRepository orderRepository, IMapper<Order, OrderEntity> mapper, OrderEventService orderEventService) {
         this.orderRepository = orderRepository;
         this.mapper = mapper;
+        this.orderEventService = orderEventService;
     }
 
     @Override
@@ -39,5 +41,7 @@ public class OrderService implements OrderPort {
         OrderEntity orderEntity = mapper.domainToEntity(order);
 
         orderRepository.save(orderEntity);
+
+        orderEventService.publish(order);
     }
 }
