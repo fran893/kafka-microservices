@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/events/events.iml" filepath="$PROJECT_DIR$/events/events.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/kafka-microservices.iml" filepath="$PROJECT_DIR$/.idea/kafka-microservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/notifications/notifications.iml" filepath="$PROJECT_DIR$/notifications/notifications.iml" />
+      <module fileurl="file://$PROJECT_DIR$/orders/orders.iml" filepath="$PROJECT_DIR$/orders/orders.iml" />
     </modules>
   </component>
 </project>
