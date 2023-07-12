@@ -5,6 +5,7 @@ import com.example.kafka.creditcard.infra.adapter.out.persistance.IMapper;
 import com.example.kafka.creditcard.infra.port.in.BalancePort;
 import com.example.kafka.creditcard.infra.port.out.CreditCardBalanceRepository;
 import com.kafka.example.events.domain.CreditCardBalance;
+import com.kafka.example.events.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,14 @@ public class BalanceService implements BalancePort {
         CreditCardBalance balance = mapper.entityToDomain(creditCardBalanceRepository.findByCustomerId(customerId));
 
         return balance;
+    }
+
+    @Override
+    public void updateBalance(Order order) {
+        CreditCardBalance currentCustomerBalance = this.getBalance(order.getCustomerId());
+
+        currentCustomerBalance.updateAmount(order.getPrice());
+
+        creditCardBalanceRepository.save(mapper.domainToEntity(currentCustomerBalance));
     }
 }
