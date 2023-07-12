@@ -1,3 +1,6 @@
 [submodule "kafka-customers"]
 	path = kafka-customers
 	url = https://github.com/fran893/kafka-customers.git
+[submodule "kafka-notifications"]
+	path = kafka-notifications
+	url = https://github.com/fran893/kafka-notifications.git
