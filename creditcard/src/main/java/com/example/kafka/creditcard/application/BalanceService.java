@@ -3,8 +3,10 @@ package com.example.kafka.creditcard.application;
 import com.example.kafka.creditcard.infra.adapter.out.persistance.CreditCardBalanceEntity;
 import com.example.kafka.creditcard.infra.adapter.out.persistance.IMapper;
 import com.example.kafka.creditcard.infra.port.in.BalancePort;
+import com.example.kafka.creditcard.infra.port.in.MessagingEvent;
 import com.example.kafka.creditcard.infra.port.out.CreditCardBalanceRepository;
 import com.kafka.example.events.domain.CreditCardBalance;
+import com.kafka.example.events.domain.Event;
 import com.kafka.example.events.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,12 @@ public class BalanceService implements BalancePort {
     private IMapper<CreditCardBalance, CreditCardBalanceEntity> mapper;
 
     @Autowired
-    public BalanceService(CreditCardBalanceRepository creditCardBalanceRepository, IMapper<CreditCardBalance, CreditCardBalanceEntity> mapper) {
+    public BalanceService(CreditCardBalanceRepository creditCardBalanceRepository,
+                          IMapper<CreditCardBalance, CreditCardBalanceEntity> mapper) {
         this.creditCardBalanceRepository = creditCardBalanceRepository;
         this.mapper = mapper;
     }
+
 
     @Override
     public List<CreditCardBalance> getBalances() {
@@ -37,9 +41,7 @@ public class BalanceService implements BalancePort {
 
     @Override
     public CreditCardBalance getBalance(int customerId) {
-        CreditCardBalance balance = mapper.entityToDomain(creditCardBalanceRepository.findByCustomerId(customerId));
-
-        return balance;
+        return mapper.entityToDomain(creditCardBalanceRepository.findByCustomerId(customerId));
     }
 
     @Override
@@ -47,7 +49,6 @@ public class BalanceService implements BalancePort {
         CreditCardBalance currentCustomerBalance = this.getBalance(order.getCustomerId());
 
         currentCustomerBalance.updateAmount(order.getPrice());
-
         creditCardBalanceRepository.save(mapper.domainToEntity(currentCustomerBalance));
     }
 }
