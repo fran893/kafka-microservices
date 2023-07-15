@@ -1,5 +1,5 @@
 package com.kafka.example.events.domain;
 
 public enum EventType {
-    CREATED, UPDATED, DELETED
+    CREATED, UPDATED, DELETED, CONFIRMED, REJECTED
 }
