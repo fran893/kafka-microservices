@@ -3,6 +3,7 @@ package com.example.kafka.orders.application;
 import com.example.kafka.orders.infra.port.out.MessagingBroker;
 import com.example.kafka.orders.infra.port.out.MessagingEvent;
 import com.kafka.example.events.domain.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class OrderEventService implements MessagingEvent<Order> {
 
@@ -33,6 +35,7 @@ public class OrderEventService implements MessagingEvent<Order> {
         orderEvent.setType(EventType.CREATED);
         orderEvent.setDate(LocalDate.now());
 
+        log.info("Sending message to kafka.., topic: {}", orderTopic);
         kafkaBroker.brokerTemplate().send(orderTopic, orderEvent);
 
     }

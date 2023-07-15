@@ -20,6 +20,6 @@ spring:
 app:
   kafka:
     producer:
-      topic: orders
+      topic: orders_created
 server:
   port: 8090
