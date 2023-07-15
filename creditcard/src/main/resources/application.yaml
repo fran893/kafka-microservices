@@ -18,6 +18,10 @@ spring:
       auto-offset-reset: earliest
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      topic: orders
+      topic: orders_created
       properties:
         spring.json.type.mapping: "com.kafka.example:com.kafka.example.events.domain.CreditCardEvent"
+    producer:
+      topic: orders_confirmed
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
