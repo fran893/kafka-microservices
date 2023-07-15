@@ -1,4 +1,4 @@
-package com.example.kafka.creditcard.infra.adapter.in.web;
+package com.example.kafka.creditcard.infra.adapter.in.messaging;
 
 import com.example.kafka.creditcard.infra.port.in.BrokerMessagingConsumer;
 import com.kafka.example.events.domain.Event;
