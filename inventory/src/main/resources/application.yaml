@@ -1,0 +1,23 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:inventory-db;DATABASE_TO_LOWER=TRUE;MODE=MySQL
+    driverClassName: org.h2.Driver
+    password: ''
+  h2:
+    console:
+      enabled: 'true'
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: 'true'
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      topic: orders_confirmed
+      properties:
+        spring.json.type.mapping: "com.kafka.example:com.kafka.example.events.domain.OrderEvent"
