@@ -6,12 +6,14 @@ import com.example.kafka.inventory.infra.port.in.InventoryPort;
 import com.example.kafka.inventory.infra.port.out.InventoryRepository;
 import com.kafka.example.events.domain.Inventory;
 import com.kafka.example.events.domain.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class InventoryService implements InventoryPort {
 
@@ -40,6 +42,7 @@ public class InventoryService implements InventoryPort {
 
     @Override
     public Inventory updateInventory(Order order) {
+        log.info("Updating inventory for productId: {}", order.getProductId());
         Inventory inventory = getInventory(order.getProductId());
 
         //hardcoded: At the moment the orders only contain one quantity per product, for testing purpose
