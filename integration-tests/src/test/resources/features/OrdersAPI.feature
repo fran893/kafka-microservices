@@ -1,4 +1,4 @@
-Feature: verify order creation and communication with other services
+Feature: verify order creation
 
   Scenario Outline: List orders
     Given Get call to "<url>"
