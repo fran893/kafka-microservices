@@ -23,5 +23,5 @@ Feature: Verify Inventory API endpoints
 
     Examples:
       | urlInventoryByProductId | productId | updateInventory |
-      | /v1/inventories/<productId> | 2 | v1/inventory |
+      | /v1/inventories/<productId> | 1 | v1/inventory |
 

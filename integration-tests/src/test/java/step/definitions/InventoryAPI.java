@@ -65,7 +65,7 @@ public class InventoryAPI {
 
     @Given("Send order to {string}")
     public void sendOrderTo(String url) throws URISyntaxException {
-        InputStream order_body = this.getClass().getClassLoader().getResourceAsStream("requestsBodies/order_body.json");
+        InputStream order_body = this.getClass().getClassLoader().getResourceAsStream("requestsBodies/order_body_update_inventory.json");
 
         RestAssured.baseURI = BASE_URL;
         Header header = new Header("Content-Type", "application/json");
