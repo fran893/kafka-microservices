@@ -32,7 +32,7 @@ class BalanceEventServiceTest {
     }
 
     @Test
-    public void consumerOrderConfirmedTest() {
+    public void consumerPublisherOrderConfirmedTest() {
         Order order = new Order();
         order.setProductId(1);
         order.setPrice(25.0);
@@ -51,7 +51,32 @@ class BalanceEventServiceTest {
 
         Mockito.when(kafkaBroker.brokerTemplate()).thenReturn(kafkaTemplate);
 
-        balanceEventService.publish(orderEvent);
+        balanceEventService.consumer(orderEvent);
+
+        Mockito.verify(kafkaTemplate, Mockito.times(1)).send(Mockito.eq(topic), Mockito.any());
+    }
+
+    @Test
+    public void consumerPublisherOrderRejectedTest() {
+        Order order = new Order();
+        order.setProductId(1);
+        order.setPrice(75.0);
+        order.setCustomerId(1);
+        order.setOrderId(1);
+
+        OrderEvent orderEvent = new OrderEvent();
+        orderEvent.setId("123");
+        orderEvent.setDate(LocalDate.now());
+        orderEvent.setData(order);
+        orderEvent.setType(EventType.CREATED);
+
+        Mockito.when(balanceService.getBalance(Mockito.anyInt())).thenReturn(mockBalance());
+
+        KafkaTemplate<String, Event<?>> kafkaTemplate = Mockito.mock(KafkaTemplate.class);
+
+        Mockito.when(kafkaBroker.brokerTemplate()).thenReturn(kafkaTemplate);
+
+        balanceEventService.consumer(orderEvent);
 
         Mockito.verify(kafkaTemplate, Mockito.times(1)).send(Mockito.eq(topic), Mockito.any());
     }
